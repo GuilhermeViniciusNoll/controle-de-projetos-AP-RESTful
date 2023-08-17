@@ -15,7 +15,6 @@ const uniqueIdMiddleware = async (req: Request, res: Response, next: NextFunctio
         }
         const dev: resultDev = await client.query(queryConfig)
         res.locals = dev.rows[0]
-        console.log(dev.rows[0])
         if (dev.rows.length === 0) throw new appError("Developer not found.", 404)
         return next()
     }

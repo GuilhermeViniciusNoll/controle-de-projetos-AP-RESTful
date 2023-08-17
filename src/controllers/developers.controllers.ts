@@ -28,9 +28,8 @@ const deleteDevController = async (req: Request, res: Response): Promise<Respons
 const postDevInfoController = async (req: Request, res: Response): Promise<Response> => {
     const payload: partialDataDevInfos = {
         ...req.body,
-        developerId: req.params.id
     }
-    const devInfo: DevInfos = await services.postDevInfoService(payload)
+    const devInfo: DevInfos = await services.postDevInfoService(payload, req.params.id)
     return res.status(201).json(devInfo)
 }
 

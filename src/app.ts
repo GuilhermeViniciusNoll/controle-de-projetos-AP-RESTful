@@ -4,7 +4,6 @@ import routes from "./routes";
 import middlewares from "./middlewares";
 import "express-async-errors";
 
-
 const app: Application = express();
 app.use(json())
 

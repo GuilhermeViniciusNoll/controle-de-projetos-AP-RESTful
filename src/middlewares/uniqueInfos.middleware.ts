@@ -1,22 +1,18 @@
 import { NextFunction, Request, Response } from "express"
 import schemas from "../schemas"
-import { resultDev, resultDevInfos } from "../interfaces"
+import { resultDevInfos } from "../interfaces"
 import { client } from "../database"
 import { QueryConfig } from "pg"
 import appError from "../errors"
 
 const uniqueInfosMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const isValidId: boolean = schemas.validIdSchema(req.params.id)
-    if (!isValidId) {
-        const queryConfig: QueryConfig = {
-            text: `SELECT * FROM developerinfos WHERE "developerid" = $1;`,
-            values: [req.params.id]
-        }
-        const dev: resultDevInfos = await client.query(queryConfig)
-        if (dev.rows.length === 0) return next()
-        throw new appError("Developer infos already exists.", 409)
+    const queryConfig: QueryConfig = {
+        text: `SELECT "id" FROM "developerInfos" WHERE "developerId" = $1;`,
+        values: [req.params.id]
     }
-    throw new appError("Invalid Id format.", 400)
+    const dev: resultDevInfos = await client.query(queryConfig)
+    if (dev.rowCount === 0) return next()
+    throw new appError("Developer infos already exists.", 409)
 }
 
 export default uniqueInfosMiddleware

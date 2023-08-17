@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
-import { Dev, DevInfos, createDev, createproject, partialDataDev, partialDataDevInfos, partialDataproject, project } from "../interfaces"
-import servicesDev from "../services/developers.services"
+import { createproject, partialDataproject, project } from "../interfaces"
 import projectsServices from "../services/projects.services"
 
 const createProjectController = async (req: Request, res: Response): Promise<Response> => {

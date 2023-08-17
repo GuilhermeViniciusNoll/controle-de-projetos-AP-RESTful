@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import schemas from "../schemas"
-import { resultDev, resultproject } from "../interfaces"
+import {  resultproject } from "../interfaces"
 import { client } from "../database"
 import { QueryConfig } from "pg"
 import appError from "../errors"

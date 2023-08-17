@@ -14,8 +14,8 @@ const createDevService = async (payload: createDev): Promise<Dev> => {
 
 const getDevByIdService = async (id: String): Promise<Object> => {
     const queryConfig: QueryConfig = {
-        text: `SELECT dev.id "developerId", dev.name "developerName", dev.email "developerEmail", devInfo.developersince "developerInfoDeveloperSince", devInfo.preferredos "developerInfoPreferredOS" 
-                FROM developers AS dev LEFT JOIN developerinfos AS devInfo ON dev.id = devInfo.developerid WHERE dev.id = $1;`,
+        text: `SELECT dev.id "developerId", dev.name "developerName", dev.email "developerEmail", devinfo."developerSince" "developerInfoDeveloperSince", devinfo."preferredOS" "developerInfoPreferredOS" 
+                FROM developers AS dev LEFT JOIN "developerInfos" AS devinfo ON dev.id = devinfo."developerId" WHERE dev.id = $1;`,
         values: [id]
     }
     const dev: resultDev = await client.query(queryConfig)
@@ -45,10 +45,10 @@ const deleteDevService = async (id: String): Promise<Dev> => {
     return dev.rows[0]
 }
 
-const postDevInfoService = async (payload: partialDataDevInfos): Promise<DevInfos> => {
+const postDevInfoService = async (payload: partialDataDevInfos, devId: String): Promise<DevInfos> => {
     const queryConfig: QueryConfig = {
-        text: `INSERT INTO developerinfos ("developersince","preferredos","developerid") VALUES ($1,$2,$3) RETURNING *;`,
-        values: [payload.developerSince, payload.preferredOS, payload.developerId]
+        text: `INSERT INTO "developerInfos" ("developerSince","preferredOS","developerId") VALUES ($1,$2,$3) RETURNING *;`,
+        values: [payload.developerSince, payload.preferredOS, devId]
     }
     const dev: resultDevInfos = await client.query(queryConfig)
     return dev.rows[0]
