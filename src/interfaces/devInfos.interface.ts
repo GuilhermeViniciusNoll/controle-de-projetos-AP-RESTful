@@ -1,14 +1,14 @@
 import { QueryResult } from "pg"
 
-type DevInfos = {
+interface IDevInfo {
     id: Number,
     developerSince: Date,
-    preferredOS: "Windows" | "Linux" | "MacOS" ,
+    preferredOS: "Windows" | "Linux" | "MacOS",
     developerId: Number
 }
 
-type createDevInfos = Omit<DevInfos, "id">
-type partialDataDevInfos = Partial<DevInfos>
-type resultDevInfos = QueryResult<DevInfos>
+type TCreateDevInfo = Omit<IDevInfo, "id">
+type TPartialDevInfo = Partial<IDevInfo>
+type TResultDevInfo = QueryResult<IDevInfo>
 
-export { DevInfos, createDevInfos, partialDataDevInfos, resultDevInfos }
+export { IDevInfo, TCreateDevInfo, TPartialDevInfo, TResultDevInfo }

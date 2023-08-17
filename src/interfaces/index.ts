@@ -1,5 +1,5 @@
-import { Dev, createDev, partialDataDev, resultDev } from "./developers.interface"
-import { DevInfos, createDevInfos, partialDataDevInfos, resultDevInfos } from "./devInfos.interface"
-import { project, createproject, partialDataproject, resultproject } from "./projects.interface"
+import { IDev, TCreateDev, TPartialDev, TResultDev } from "./developers.interface"
+import { IDevInfo, TCreateDevInfo, TPartialDevInfo, TResultDevInfo } from "./devInfos.interface"
+import { IProject, TCreateProject, TPartialProject, TResultProject } from "./projects.interface"
 
-export { Dev, createDev, partialDataDev, resultDev, DevInfos, createDevInfos, partialDataDevInfos, resultDevInfos, project, createproject, partialDataproject, resultproject }
+export { IDev, IDevInfo, IProject, TCreateDev, TCreateDevInfo, TCreateProject, TPartialDev, TPartialDevInfo, TPartialProject, TResultDev, TResultDevInfo, TResultProject }

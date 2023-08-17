@@ -1,13 +1,13 @@
 import { QueryResult } from "pg"
 
-type Dev = {
+interface IDev {
     id: Number,
     name: String,
     email: String
 }
 
-type createDev = Omit<Dev, "id">
-type partialDataDev = Partial<Dev>
-type resultDev = QueryResult<Dev>
+type TCreateDev = Omit<IDev, "id">
+type TPartialDev = Partial<IDev>
+type TResultDev = QueryResult<IDev>
 
-export { Dev, createDev, partialDataDev, resultDev }
+export { IDev, TCreateDev, TPartialDev, TResultDev }

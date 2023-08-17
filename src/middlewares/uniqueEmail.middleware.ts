@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response } from "express"
+import appError from "../errors"
 import schemas from "../schemas"
-import { resultDev } from "../interfaces"
 import { client } from "../database"
 import { QueryConfig } from "pg"
-import appError from "../errors"
-
+import { NextFunction, Request, Response } from "express"
+import { TResultDev } from "../interfaces"
 
 const uniqueEmailMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const isValidName: boolean = schemas.validNameSchema(req.body.name)
@@ -14,7 +13,7 @@ const uniqueEmailMiddleware = async (req: Request, res: Response, next: NextFunc
             text: `SELECT * FROM developers WHERE "email" = $1;`,
             values: [req.body.email]
         }
-        const dev: resultDev = await client.query(queryConfig)
+        const dev: TResultDev = await client.query(queryConfig)
         if (dev.rows.length === 0) return next()
         throw new appError("Email already exists.", 409)
     }

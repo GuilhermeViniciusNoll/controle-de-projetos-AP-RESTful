@@ -1,6 +1,6 @@
 import { QueryResult } from "pg"
 
-type project = {
+interface IProject {
     id: Number,
     name: String,
     description: String,
@@ -10,8 +10,8 @@ type project = {
     developerId: Number | null
 }
 
-type createproject = Omit<project, "id">
-type partialDataproject = Partial<project>
-type resultproject = QueryResult<project>
+type TCreateProject = Omit<IProject, "id">
+type TPartialProject = Partial<IProject>
+type TResultProject = QueryResult<IProject>
 
-export { project, createproject, partialDataproject, resultproject }
+export { IProject, TCreateProject, TPartialProject, TResultProject }

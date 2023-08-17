@@ -1,35 +1,35 @@
-import { Request, Response } from "express"
-import { Dev, DevInfos, createDev, partialDataDev, partialDataDevInfos } from "../interfaces"
 import services from "../services/developers.services"
+import { Request, Response } from "express"
+import { IDev, IDevInfo, TCreateDev, TPartialDev, TPartialDevInfo } from "../interfaces"
 
 const createDevController = async (req: Request, res: Response): Promise<Response> => {
-    const payload: createDev = req.body
-    const dev: Dev = await services.createDevService(payload)
+    const payload: TCreateDev = req.body
+    const dev: IDev = await services.createDevService(payload)
     return res.status(201).json(dev)
 }
 
 const getDevByIdController = async (req: Request, res: Response): Promise<Response> => {
-    const dev: Object = await services.getDevByIdService(req.params.id)
+    const dev: TPartialDev & TPartialDevInfo = await services.getDevByIdService(req.params.id)
     return res.status(200).json(dev)
 }
 
 const pathDevController = async (req: Request, res: Response): Promise<Response> => {
-    const payload: partialDataDev = req.body
-    const lastData: Dev = res.locals[0]
-    const dev: Dev = await services.pathDevService(payload, lastData, req.params.id)
+    const payload: TPartialDev = req.body
+    const lastData: IDev = res.locals[0]
+    const dev: IDev = await services.pathDevService(payload, lastData, req.params.id)
     return res.status(200).json(dev)
 }
 
 const deleteDevController = async (req: Request, res: Response): Promise<Response> => {
-    const dev: Dev = await services.deleteDevService(req.params.id)
+    const dev: IDev = await services.deleteDevService(req.params.id)
     return res.status(204).json()
 }
 
 const postDevInfoController = async (req: Request, res: Response): Promise<Response> => {
-    const payload: partialDataDevInfos = {
+    const payload: TPartialDevInfo = {
         ...req.body,
     }
-    const devInfo: DevInfos = await services.postDevInfoService(payload, req.params.id)
+    const devInfo: IDevInfo = await services.postDevInfoService(payload, req.params.id)
     return res.status(201).json(devInfo)
 }
 
